@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function BlogPost() {
+export default function BlogCard() {
   return (
       <div>
           
-          <h1>BlogPost</h1>
+          <h1>BlogCard</h1>
           
     </div>
   )
