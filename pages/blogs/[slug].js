@@ -117,12 +117,12 @@ export default function blogPosts({ blogPost }) {
             className="rounded-xl mx-auto"
           />
         </div>
-        <div className="py-3">
-          <div className="px-3 xl:max-w-96">
+        <div className="py-3 px-5">
+          <div className="xl:max-w-96">
             <h3>{author}</h3>
           </div>
 
-          <div className="flex justify-between px-3 xl:max-w-96 text-xs py-3 text-gray-500">
+          <div className="flex justify-between  xl:max-w-96 text-xs py-3 text-gray-500">
             {readTime <= 1 ? (
               <p className="">Read Time: {readTime} min</p>
             ) : (
@@ -137,19 +137,21 @@ export default function blogPosts({ blogPost }) {
         {blogPost.fields.blogSections.map((section, index) => (
           <div key={index}>
             {section.sys.contentType.sys.id === "image" &&
-            section.fields.image.fields.file ? (
+              section.fields.image.fields.file ? (
+                <div className="py-3">
               <Image
                 src={`https:${section.fields.image.fields.file.url}`}
                 alt={section.fields.altText}
-                width={300}
-                height={300}
-              />
+                width={350}
+                height={350}
+                    className=" mx-auto rounded-lg" />
+                </div>
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-              <div className="leading-relaxed">
+              <div className="leading-relaxed px-5 py-3 xl:px-3">
                 {documentToReactComponents(section.fields.textBlockText)}
               </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
-              <div className="px-4">
+              <div className="px-5">
                 <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg overflow-x-auto  xl:w-[800px]">
                   <code className="whitespace-pre-wrap">
                     {documentToReactComponents(section.fields.codeBlockCode)}
