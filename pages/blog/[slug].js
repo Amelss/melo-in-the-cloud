@@ -80,20 +80,7 @@ export async function getStaticProps({ params }) {
   }
 }
 
-const copyToClipboard = (content) => {
-  navigator.clipboard
-    .writeText(content)
-    .then(() => {
-      // Successful copy
-      console.log("Code block copied to clipboard");
-      // You can also provide feedback to the user here if needed
-    })
-    .catch((error) => {
-      // Failed to copy
-      console.error("Failed to copy code block to clipboard", error);
-      // You can also provide feedback to the user here if needed
-    });
-};
+
 
 export default function blogPosts({ blogPost, referencedEntries }) {
   console.log(referencedEntries);
@@ -116,10 +103,13 @@ export default function blogPosts({ blogPost, referencedEntries }) {
               height={300}
             />
           ) : section.sys.contentType.sys.id === "textBlock" ? (
-            documentToReactComponents(section.fields.textBlockText)
+                      documentToReactComponents(section.fields.textBlockText)
+                      
           ) : section.sys.contentType.sys.id === "codeBlock" ? (
-                    <pre className="px-6 py-3 my-4 bg-gray-500 text-blue-300 font-mono rounded-lg">
-                      {documentToHtmlString(section.fields.codeBlockCode)}
+                    <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg text-pretty w-[800px]">
+                              <div className="">
+                                  {documentToHtmlString(section.fields.codeBlockCode)}
+                              </div>
                     </pre>
                 
           ) : null}
