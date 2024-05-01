@@ -3,6 +3,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "next/head";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Image from "next/image";
+import { useState } from "react";
 
 
 const client = createClient({
@@ -81,8 +82,8 @@ export async function getStaticProps({ params }) {
 
 
 
-export default function blogPosts({ blogPost, referencedEntries }) {
-  // console.log(referencedEntries);
+export default function blogPosts({ blogPost }) {
+  
   // console.log(blogPost);
 
     const {title, readTime, author, hero, datePublished, category, heroAltText} = blogPost.fields
@@ -116,22 +117,24 @@ export default function blogPosts({ blogPost, referencedEntries }) {
             className="rounded-xl mx-auto"
           />
         </div>
-        <div className="">
-          <div className="flex justify-between px-3 xl:max-w-96">
+        <div className="py-3">
+          
+   
+          <div className="px-3 xl:max-w-96">
             <h3>{author}</h3>
-            <p>{formatDate(datePublished)}</p>
           </div>
-        </div>
+        
 
-        <div className="flex justify-between px-3 xl:max-w-96 text-xs font-bold py-3">
+        <div className="flex justify-between px-3 xl:max-w-96 text-xs py-3 text-gray-500">
           {readTime <= 1 ? (
-            <p className="">Read Time: {readTime} minute</p>
+            <p className="">Read Time: {readTime} min</p>
           ) : (
-            <p className="">Read Time: {readTime} minutes </p>
+            <p className="">Read Time: {readTime} mins </p>
           )}
-           <p className="text-blue-300">Category: {category}</p>
+          <p>{formatDate(datePublished)}</p>
+           <p className="">Category: {category}</p>
         </div>
-
+  </div>
        
       </div>
       <div>
@@ -146,7 +149,9 @@ export default function blogPosts({ blogPost, referencedEntries }) {
                 height={300}
               />
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-              documentToReactComponents(section.fields.textBlockText)
+                <div className="leading-relaxed">
+                  {documentToReactComponents(section.fields.textBlockText)}
+                </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
               <div className="px-4">
                 <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg overflow-x-auto  xl:w-[800px]">
