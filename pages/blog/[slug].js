@@ -64,10 +64,12 @@ export async function getStaticProps({ params }) {
       })
     );
 
+    
+      
     return {
       props: {
         blogPost,
-        referencedEntries,
+            referencedEntries,   
       },
     };
   } catch (error) {
@@ -86,12 +88,41 @@ export default function blogPosts({ blogPost, referencedEntries }) {
   console.log(referencedEntries);
   console.log(blogPost);
 
-    
+    const {title, readTime, author, hero, datePublished, category, heroAltText} = blogPost.fields
+
+      const formatDate = (dateString) => {
+        const options = { day: "2-digit", month: "short", year: "numeric" };
+        return new Date(dateString).toLocaleDateString("en-GB", options);
+      };
     
   return (
     <div>
+      <Head>
+        <title>{`${title}`}</title>
+        <meta
+          name="description"
+          content="A blog by Ameley and her cloud journey"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/logo.png" />
+      </Head>
       <h1>{blogPost.fields.title}</h1>
-
+      <Image
+        src={`https:${hero.fields.file.url}`}
+        alt={heroAltText}
+        width={600}
+        height={600}
+      />
+      <h3>{author}</h3>
+      <div>
+        {readTime <= 1 ? (
+          <p className="">Read Time: {readTime} minute</p>
+        ) : (
+          <p className="">Read Time: {readTime} minutes </p>
+        )}
+      </div>
+      <p>{formatDate(datePublished)}</p>
+      <p>{category}</p>
       {blogPost.fields.blogSections.map((section, index) => (
         <div key={index}>
           {section.sys.contentType.sys.id === "image" &&
@@ -103,15 +134,13 @@ export default function blogPosts({ blogPost, referencedEntries }) {
               height={300}
             />
           ) : section.sys.contentType.sys.id === "textBlock" ? (
-                      documentToReactComponents(section.fields.textBlockText)
-                      
+            documentToReactComponents(section.fields.textBlockText)
           ) : section.sys.contentType.sys.id === "codeBlock" ? (
-                    <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg text-pretty w-[800px]">
-                              <div className="">
-                                  {documentToHtmlString(section.fields.codeBlockCode)}
-                              </div>
-                    </pre>
-                
+            <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg text-pretty w-[800px]">
+              <div className="">
+                {documentToHtmlString(section.fields.codeBlockCode)}
+              </div>
+            </pre>
           ) : null}
         </div>
       ))}
