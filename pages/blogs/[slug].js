@@ -1,11 +1,8 @@
 import { createClient } from "contentful";
-import { getEntriesByContentType } from "@/lib/helpers";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Head from "next/head";
-import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Image from "next/image";
-import { useState } from "react";
 
 
 const client = createClient({
@@ -85,8 +82,8 @@ export async function getStaticProps({ params }) {
 
 
 export default function blogPosts({ blogPost, referencedEntries }) {
-  console.log(referencedEntries);
-  console.log(blogPost);
+  // console.log(referencedEntries);
+  // console.log(blogPost);
 
     const {title, readTime, author, hero, datePublished, category, heroAltText} = blogPost.fields
 
@@ -106,44 +103,62 @@ export default function blogPosts({ blogPost, referencedEntries }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
       </Head>
-      <h1>{blogPost.fields.title}</h1>
-      <Image
-        src={`https:${hero.fields.file.url}`}
-        alt={heroAltText}
-        width={600}
-        height={600}
-      />
-      <h3>{author}</h3>
-      <div>
-        {readTime <= 1 ? (
-          <p className="">Read Time: {readTime} minute</p>
-        ) : (
-          <p className="">Read Time: {readTime} minutes </p>
-        )}
-      </div>
-      <p>{formatDate(datePublished)}</p>
-      <p>{category}</p>
-      {blogPost.fields.blogSections.map((section, index) => (
-        <div key={index}>
-          {section.sys.contentType.sys.id === "image" &&
-          section.fields.image.fields.file ? (
-            <Image
-              src={`https:${section.fields.image.fields.file.url}`}
-              alt={section.fields.altText}
-              width={300}
-              height={300}
-            />
-          ) : section.sys.contentType.sys.id === "textBlock" ? (
-            documentToReactComponents(section.fields.textBlockText)
-          ) : section.sys.contentType.sys.id === "codeBlock" ? (
-            <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg text-pretty w-[800px]">
-              <div className="">
-                {documentToHtmlString(section.fields.codeBlockCode)}
-              </div>
-            </pre>
-          ) : null}
+      <div className="my-3">
+        <h1 className="text-center text-3xl font-bold py-6">
+          {blogPost.fields.title}
+        </h1>
+        <div className="">
+          <Image
+            src={`https:${hero.fields.file.url}`}
+            alt={heroAltText}
+            width={600}
+            height={600}
+            className="rounded-xl mx-auto"
+          />
         </div>
-      ))}
+        <div className="">
+          <div className="flex justify-between px-3 xl:max-w-96">
+            <h3>{author}</h3>
+            <p>{formatDate(datePublished)}</p>
+          </div>
+        </div>
+
+        <div className="flex justify-between px-3 xl:max-w-96 text-xs font-bold py-3">
+          {readTime <= 1 ? (
+            <p className="">Read Time: {readTime} minute</p>
+          ) : (
+            <p className="">Read Time: {readTime} minutes </p>
+          )}
+           <p className="text-blue-300">Category: {category}</p>
+        </div>
+
+       
+      </div>
+      <div>
+        {blogPost.fields.blogSections.map((section, index) => (
+          <div key={index}>
+            {section.sys.contentType.sys.id === "image" &&
+            section.fields.image.fields.file ? (
+              <Image
+                src={`https:${section.fields.image.fields.file.url}`}
+                alt={section.fields.altText}
+                width={300}
+                height={300}
+              />
+            ) : section.sys.contentType.sys.id === "textBlock" ? (
+              documentToReactComponents(section.fields.textBlockText)
+            ) : section.sys.contentType.sys.id === "codeBlock" ? (
+              <div className="px-4">
+                <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg overflow-x-auto  xl:w-[800px]">
+                  <code className="whitespace-pre-wrap">
+                    {documentToHtmlString(section.fields.codeBlockCode)}
+                  </code>
+                </pre>
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
