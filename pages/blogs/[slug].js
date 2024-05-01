@@ -118,24 +118,20 @@ export default function blogPosts({ blogPost }) {
           />
         </div>
         <div className="py-3">
-          
-   
           <div className="px-3 xl:max-w-96">
             <h3>{author}</h3>
           </div>
-        
 
-        <div className="flex justify-between px-3 xl:max-w-96 text-xs py-3 text-gray-500">
-          {readTime <= 1 ? (
-            <p className="">Read Time: {readTime} min</p>
-          ) : (
-            <p className="">Read Time: {readTime} mins </p>
-          )}
-          <p>{formatDate(datePublished)}</p>
-           <p className="">Category: {category}</p>
+          <div className="flex justify-between px-3 xl:max-w-96 text-xs py-3 text-gray-500">
+            {readTime <= 1 ? (
+              <p className="">Read Time: {readTime} min</p>
+            ) : (
+              <p className="">Read Time: {readTime} mins </p>
+            )}
+            <p>{formatDate(datePublished)}</p>
+            <p className="">Category: {category}</p>
+          </div>
         </div>
-  </div>
-       
       </div>
       <div>
         {blogPost.fields.blogSections.map((section, index) => (
@@ -149,14 +145,14 @@ export default function blogPosts({ blogPost }) {
                 height={300}
               />
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-                <div className="leading-relaxed">
-                  {documentToReactComponents(section.fields.textBlockText)}
-                </div>
+              <div className="leading-relaxed">
+                {documentToReactComponents(section.fields.textBlockText)}
+              </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
               <div className="px-4">
                 <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg overflow-x-auto  xl:w-[800px]">
                   <code className="whitespace-pre-wrap">
-                    {documentToHtmlString(section.fields.codeBlockCode)}
+                    {documentToReactComponents(section.fields.codeBlockCode)}
                   </code>
                 </pre>
               </div>
