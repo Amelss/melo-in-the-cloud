@@ -5,6 +5,8 @@ import Head from "next/head";
 import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Image from "next/image";
+import { useState } from "react";
+
 
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
@@ -78,10 +80,27 @@ export async function getStaticProps({ params }) {
   }
 }
 
+const copyToClipboard = (content) => {
+  navigator.clipboard
+    .writeText(content)
+    .then(() => {
+      // Successful copy
+      console.log("Code block copied to clipboard");
+      // You can also provide feedback to the user here if needed
+    })
+    .catch((error) => {
+      // Failed to copy
+      console.error("Failed to copy code block to clipboard", error);
+      // You can also provide feedback to the user here if needed
+    });
+};
+
 export default function blogPosts({ blogPost, referencedEntries }) {
   console.log(referencedEntries);
   console.log(blogPost);
 
+    
+    
   return (
     <div>
       <h1>{blogPost.fields.title}</h1>
@@ -95,11 +114,15 @@ export default function blogPosts({ blogPost, referencedEntries }) {
               alt={section.fields.altText}
               width={300}
               height={300}
-              
             />
-          ) : (
+          ) : section.sys.contentType.sys.id === "textBlock" ? (
             documentToReactComponents(section.fields.textBlockText)
-          )}
+          ) : section.sys.contentType.sys.id === "codeBlock" ? (
+                    <pre className="px-6 py-3 my-4 bg-gray-500 text-blue-300 font-mono rounded-lg">
+                      {documentToHtmlString(section.fields.codeBlockCode)}
+                    </pre>
+                
+          ) : null}
         </div>
       ))}
     </div>
