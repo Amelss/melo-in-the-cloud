@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 
+
+
 const client = createClient({
   space: process.env.CONTENTFUL_SPACE_ID,
   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
@@ -84,7 +86,18 @@ export async function getStaticProps({ params }) {
 
 export default function blogPosts({ blogPost }) {
   
-  // console.log(blogPost);
+  const[copied, setCopied] = useState(false);
+  console.log(blogPost);
+  const copyToClipboard = (text) => {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000); // Reset copied state after 2 seconds
+      })
+      .catch((error) => console.error("Failed to copy:", error));
+  };
+
 
     const {title, readTime, author, hero, datePublished, category, heroAltText} = blogPost.fields
 
@@ -137,25 +150,35 @@ export default function blogPosts({ blogPost }) {
         {blogPost.fields.blogSections.map((section, index) => (
           <div key={index}>
             {section.sys.contentType.sys.id === "image" &&
-              section.fields.image.fields.file ? (
-                <div className="py-3">
-              <Image
-                src={`https:${section.fields.image.fields.file.url}`}
-                alt={section.fields.altText}
-                width={350}
-                height={350}
-                    className=" mx-auto rounded-lg" />
-                </div>
+            section.fields.image.fields.file ? (
+              <div className="py-3">
+                <Image
+                  src={`https:${section.fields.image.fields.file.url}`}
+                  alt={section.fields.altText}
+                  width={350}
+                  height={350}
+                  className=" mx-auto rounded-lg"
+                />
+              </div>
             ) : section.sys.contentType.sys.id === "textBlock" ? (
               <div className="leading-relaxed px-5 py-3 xl:px-3">
                 {documentToReactComponents(section.fields.textBlockText)}
               </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
-              <div className="px-5">
-                <pre className="px-6 py-10 my-7 bg-gray-600 text-blue-300 font-mono rounded-lg overflow-x-auto  xl:w-[800px]">
-                  <code className="whitespace-pre-wrap">
-                    {documentToReactComponents(section.fields.codeBlockCode)}
+              <div className="px-5 relative">
+                <pre className="relative px-6 py-14 my-7 bg-gray-200 text-black font-mono rounded-lg overflow-x-auto xl:w-[800px]">
+                  <div className="absolute top-0 left-0 w-full h-10 bg-gray-300"></div>
+                  <code className="whitespace-pre-wrap py-2">
+                    {section.fields.codeBlockCode}
                   </code>
+                  <button
+                    className="absolute top-2 right-2 px-2 py-1 mb-4 bg-blue-300 text-black text-sm rounded-md focus:outline-none"
+                    onClick={() =>
+                      copyToClipboard(section.fields.codeBlockCode)
+                    }
+                  >
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
                 </pre>
               </div>
             ) : null}
