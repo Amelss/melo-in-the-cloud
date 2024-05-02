@@ -145,6 +145,7 @@ export default function blogPosts({ blogPost }) {
             <p className="">Category: {category}</p>
           </div>
         </div>
+        <hr className="xl:w-[800px] mx-auto"/>
       </div>
       <div>
         {blogPost.fields.blogSections.map((section, index) => (
