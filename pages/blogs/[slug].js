@@ -85,15 +85,17 @@ export async function getStaticProps({ params }) {
 
 
 export default function blogPosts({ blogPost }) {
+   // console.log(blogPost);
+
   
   const[copied, setCopied] = useState(false);
-  console.log(blogPost);
+ 
   const copyToClipboard = (text) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000); // Reset copied state after 2 seconds
+        setTimeout(() => setCopied(false), 3000); 
       })
       .catch((error) => console.error("Failed to copy:", error));
   };
