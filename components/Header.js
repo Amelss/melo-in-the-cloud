@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { stack as Menu } from "react-burger-menu";
 import { useState } from "react";
+import Search from "./Search";
 
 export default function Header() {
  const [isOpen, setOpen] = useState(false);
@@ -15,10 +16,10 @@ export default function Header() {
  };
 
   return (
-    <div>
-      <div className="flex items-center justify-between">
+    <div className="">
+      <div className="flex items-center justify-between px-3 py-2 xl:px-10 bg-white sticky">
         <div>
-          <h1>Melo In The Cloud</h1>
+          <h1 className="text-xl xl:text-3xl text-blue-300 font-bold">Melo In The Cloud</h1>
         </div>
         <div className="xl:hidden">
           <Menu
@@ -40,20 +41,26 @@ export default function Header() {
               Contact
             </Link>
           </Menu>
+          {/* <div>
+             <Search />
+          </div> */}
+         
         </div>
-
+        <div className="hidden xl:flex">
+          <Search />
+    </div>
         <div className="hidden xl:flex">
           <nav>
-            <Link href={"/"} >
+            <Link href={"/"} className="">
               Home
             </Link>
-            <Link href={"/about"}>
+            <Link href={"/about"} className="ml-3">
               About
             </Link>
-            <Link href={"/blogs"} >
+            <Link href={"/blogs"} className="ml-3">
               All Blogs
             </Link>
-            <Link href={"/contact"}>
+            <Link href={"/contact"} className="ml-3">
               Contact
             </Link>
           </nav>
