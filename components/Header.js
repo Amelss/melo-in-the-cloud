@@ -17,7 +17,7 @@ export default function Header() {
 
   return (
     <div className="">
-      <div className="flex items-center justify-between px-3 pt-3 pb-14 xl:px-10 bg-white sticky">
+      <div className="flex items-center justify-between px-3 pt-3 pb-14 xl:px-10 bg-white ">
         <Link href={"/"}>
           <div>
             <h1 className="text-xl xl:text-3xl text-blue-300 font-bold">
@@ -25,7 +25,7 @@ export default function Header() {
             </h1>
           </div>
         </Link>
-        <div className="xl:hidden z-10">
+        <div className="xl:hidden ">
           <Menu
             right
             isOpen={isOpen}
