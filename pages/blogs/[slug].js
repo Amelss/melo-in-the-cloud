@@ -69,7 +69,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         blogPost,
-            referencedEntries,   
+        referencedEntries,   
       },
     };
   } catch (error) {
