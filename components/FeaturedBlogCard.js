@@ -18,9 +18,9 @@ export default function FeaturedBlogCard({ main }) {
               height={768}
               className="rounded-3xl "
             />
-            <div className="absolute bottom-14 px-3 backdrop-blur-xl w-[340px] lg:w-[800px] xl:w-[1300px] ml-4 py-2 lg:py-8 rounded-xl border-2 border-white border-opacity-25">
+            <div className="absolute bottom-14 px-3 backdrop-blur-2xl w-[340px] lg:w-[800px] xl:w-[1000px] 2xl:w-[1300px] ml-4 py-2 lg:py-8 rounded-xl border-2 border-white border-opacity-25">
               <h1 className="font-bold text-white text-xs">Featured</h1>
-              <h1 className="font-bold text-white text-md lg:text-3xl pt-1 :py-3">
+              <h1 className="font-bold text-white text-md lg:text-3xl pt-1 xl:py-3">
                 {title}
               </h1>
               <p className="text-white text-xs lg:text-sm hidden lg:block">

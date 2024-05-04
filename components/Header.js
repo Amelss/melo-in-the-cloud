@@ -49,9 +49,9 @@ export default function Header() {
              <Search />
           </div> */}
         </div>
-        <div className="hidden lg:flex">
+        {/* <div className="hidden lg:flex">
           <Search />
-        </div>
+        </div> */}
         <div className="hidden lg:flex">
           <nav>
             <Link href={"/"} className="">
