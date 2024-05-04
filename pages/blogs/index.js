@@ -27,17 +27,15 @@ console.log(blogs)
 
   return (
     <div>
-      <Head>
+      <Head></Head>
 
-      </Head>
-      
-      <div>
+      <div className="grid grid-cols-1  xl:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-10">
         {blogs.map((blog) => (
-          <BlogCard key={blog.sys.id} blog={blog} />
+          <div>
+            <BlogCard key={blog.sys.id} blog={blog} />
+          </div>
         ))}
-         
-     </div>
- 
+      </div>
     </div>
-  )
+  );
 }
