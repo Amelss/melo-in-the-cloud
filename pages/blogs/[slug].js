@@ -3,14 +3,15 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "next/head";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import BlogCard from "@/components/BlogCard";
 
 
 
 
 const client = createClient({
-  space: process.env.CONTENTFUL_SPACE_ID,
   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+  space: process.env.CONTENTFUL_SPACE_ID,
   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
 });
 
@@ -38,6 +39,16 @@ export async function getStaticProps({ params }) {
     });
 
     const blogPost = entries.items[0];
+ 
+   
+
+    const allBlogEntries = await client.getEntries({
+      content_type: "blogPost",
+    });
+
+    const otherBlogPosts = allBlogEntries.items.filter(
+      (item) => item.sys.id !== blogPost.sys.id
+    );
 
     const referenceFields = Object.keys(blogPost.fields).filter((key) => {
       return (
@@ -64,12 +75,11 @@ export async function getStaticProps({ params }) {
       })
     );
 
-    
-      
     return {
       props: {
         blogPost,
-        referencedEntries,   
+        referencedEntries,
+        otherBlogPosts,
       },
     };
   } catch (error) {
@@ -84,30 +94,41 @@ export async function getStaticProps({ params }) {
 
 
 
-export default function blogPosts({ blogPost }) {
-   // console.log(blogPost);
-
+export default function blogPosts({ blogPost, otherBlogPosts }) {
+  if (!blogPost || !blogPost.fields) {
+    return <div>Error: Blog post not found</div>;
+  }
+  // console.log(blogPost);
+  // console.log(otherBlogPosts)
   
-  const[copied, setCopied] = useState(false);
- 
+const {
+    title,
+    readTime,
+    author,
+    hero,
+    datePublished,
+    category,
+    heroAltText,
+} = blogPost.fields;
+  
+  const [copied, setCopied] = useState(false);
+
   const copyToClipboard = (text) => {
     navigator.clipboard
       .writeText(text)
       .then(() => {
         setCopied(true);
-        setTimeout(() => setCopied(false), 3000); 
+        setTimeout(() => setCopied(false), 3000);
       })
       .catch((error) => console.error("Failed to copy:", error));
   };
 
+  const formatDate = (dateString) => {
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    return new Date(dateString).toLocaleDateString("en-GB", options);
+  };
 
-    const {title, readTime, author, hero, datePublished, category, heroAltText} = blogPost.fields
-
-      const formatDate = (dateString) => {
-        const options = { day: "2-digit", month: "short", year: "numeric" };
-        return new Date(dateString).toLocaleDateString("en-GB", options);
-      };
-    
+  
   return (
     <div>
       <Head>
@@ -147,7 +168,7 @@ export default function blogPosts({ blogPost }) {
             <p className="">Category: {category}</p>
           </div>
         </div>
-        <hr className="xl:w-[800px] mx-auto"/>
+        <hr className="xl:w-[800px] mx-auto" />
       </div>
       <div>
         {blogPost.fields.blogSections.map((section, index) => (
@@ -186,6 +207,12 @@ export default function blogPosts({ blogPost }) {
               </div>
             ) : null}
           </div>
+        ))}
+      </div>
+      <h1 className="py-10 px-5 font-bold text-sm text-center">Discover More Articles</h1>
+      <div className="grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-4 px-5 xl:px-10 xl:max-w-[1000px] xl:mx-auto ">
+        {otherBlogPosts.map((otherBlog) => (
+          <BlogCard key={otherBlog.sys.id} blog={otherBlog} />
         ))}
       </div>
     </div>

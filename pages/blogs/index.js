@@ -22,7 +22,7 @@ export async function getStaticProps() {
 }
 
 export default function blogsHome({blogs}) {
-console.log(blogs)
+
 
 
   return (
