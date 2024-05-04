@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { stack as Menu } from "react-burger-menu";
+import { slide as Menu } from "react-burger-menu";
 import { useState } from "react";
 import Search from "./Search";
 
@@ -25,7 +25,7 @@ export default function Header() {
             </h1>
           </div>
         </Link>
-        <div className="xl:hidden ">
+        <div className="lg:hidden ">
           <Menu
             right
             isOpen={isOpen}
@@ -49,10 +49,10 @@ export default function Header() {
              <Search />
           </div> */}
         </div>
-        <div className="hidden xl:flex">
+        <div className="hidden lg:flex">
           <Search />
         </div>
-        <div className="hidden xl:flex">
+        <div className="hidden lg:flex">
           <nav>
             <Link href={"/"} className="">
               Home
