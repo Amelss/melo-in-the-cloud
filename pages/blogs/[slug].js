@@ -209,8 +209,11 @@ const {
           </div>
         ))}
       </div>
-      <h1 className="py-10 px-5 font-bold text-sm text-center">Discover More Articles</h1>
-      <div className="grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-4 px-5 xl:px-10 xl:max-w-[1000px] xl:mx-auto ">
+      <div className="py-10 px-5 ">
+        <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-600 rounded-lg max-w-36 mx-auto">Discover More</h1>
+      </div>
+      
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 px-5 xl:px-10 mx-auto ">
         {otherBlogPosts.map((otherBlog) => (
           <BlogCard key={otherBlog.sys.id} blog={otherBlog} />
         ))}
