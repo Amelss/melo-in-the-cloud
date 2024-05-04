@@ -5,23 +5,27 @@ import { useState } from "react";
 import Search from "./Search";
 
 export default function Header() {
- const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(false);
 
- const handleIsOpen = () => {
-   setOpen(!isOpen);
- };
+  const handleIsOpen = () => {
+    setOpen(!isOpen);
+  };
 
- const closeSideBar = () => {
-   setOpen(false);
- };
+  const closeSideBar = () => {
+    setOpen(false);
+  };
 
   return (
     <div className="">
       <div className="flex items-center justify-between px-3 pt-3 pb-14 xl:px-10 bg-white sticky">
-        <div>
-          <h1 className="text-xl xl:text-3xl text-blue-300 font-bold">Melo In The Cloud</h1>
-        </div>
-        <div className="xl:hidden">
+        <Link href={"/"}>
+          <div>
+            <h1 className="text-xl xl:text-3xl text-blue-300 font-bold">
+              Melo In The Cloud
+            </h1>
+          </div>
+        </Link>
+        <div className="xl:hidden z-10">
           <Menu
             right
             isOpen={isOpen}
@@ -44,11 +48,10 @@ export default function Header() {
           {/* <div>
              <Search />
           </div> */}
-         
         </div>
         <div className="hidden xl:flex">
           <Search />
-    </div>
+        </div>
         <div className="hidden xl:flex">
           <nav>
             <Link href={"/"} className="">
