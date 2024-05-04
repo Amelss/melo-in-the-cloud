@@ -1,7 +1,6 @@
 import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Head from "next/head";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import BlogCard from "@/components/BlogCard";
@@ -213,8 +212,8 @@ const {
         <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-600 rounded-lg max-w-36 mx-auto">Discover More</h1>
       </div>
       
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 px-5 xl:px-10 mx-auto ">
-        {otherBlogPosts.map((otherBlog) => (
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-x-6 gap-y-4 px-5 xl:px-10 mx-auto max-w-[1000px] ">
+        {otherBlogPosts.slice(0,3).map((otherBlog) => (
           <BlogCard key={otherBlog.sys.id} blog={otherBlog} />
         ))}
       </div>
