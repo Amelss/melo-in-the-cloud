@@ -27,7 +27,12 @@ export default function blogsHome({blogs}) {
 
   return (
     <div>
-      <Head></Head>
+      <Head>
+        <title>Melo In The Cloud | View All Blogs</title>
+        <meta name="description" content="View All" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-x-4 gap-y-10 ">
         {blogs.map((blog) => (

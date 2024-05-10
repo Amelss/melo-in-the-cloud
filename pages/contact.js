@@ -1,8 +1,15 @@
 import React from 'react'
+import Head from "next/head";
 
 export default function contact() {
   return (
     <div className="">
+      <Head>
+        <title>Melo In The Cloud | Contact</title>
+        <meta name="description" content="Contact" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <section className="bg-white ">
         <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
           <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-blue-300 dark:text-white">

@@ -37,7 +37,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ mainBlog, allBlogs, homepage }) {
-  // console.log(homepage);
+  console.log(homepage);
   
   
   return (
@@ -45,8 +45,11 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
       <Head>
         {homepage.map((mainPage) => {
           <div key={mainPage.sys.id} mainPage={mainPage}>
-            <title>{mainPage.fields.homepageTitle}</title>
-            <meta name="description" content={`${mainPage.fields.seoPageDescription}`} />
+            <title>{`${mainPage.fields.homepageTitle}`}</title>
+            <meta
+              name="description"
+              content={`${mainPage.fields.seoPageDescription}`}
+            />
             <meta
               name="viewport"
               content="width=device-width, initial-scale=1"
@@ -54,8 +57,9 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
             <link rel="icon" href="/favicon.ico" />
           </div>;
         })}
-        
+         
       </Head>
+     
       {mainBlog.slice(0, 1).map((main) => (
         <FeaturedBlogCard key={main.sys.id} main={main} />
       ))}
