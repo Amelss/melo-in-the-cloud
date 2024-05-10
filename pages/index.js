@@ -46,7 +46,7 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
         {homepage.map((mainPage) => {
           <div key={mainPage.sys.id} mainPage={mainPage}>
             <Head>
-            <title>{`${mainPage.fields.homepageTitle}`}</title>
+            <title>Melo In The Cloud | Home</title>
             <meta
               name="description"
               content={`${mainPage.fields.seoPageDescription}`}
