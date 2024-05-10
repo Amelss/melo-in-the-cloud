@@ -37,7 +37,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ mainBlog, allBlogs, homepage }) {
-  console.log(homepage);
+  // console.log(homepage);
   
   
   return (
