@@ -42,10 +42,11 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
   
   return (
     <main className="mx-auto">
-      <Head>
+      
         {homepage.map((mainPage) => {
           <div key={mainPage.sys.id} mainPage={mainPage}>
-            <title>Melo In The Cloud | Home </title>
+            <Head>
+            <title>{`${mainPage.fields.homepageTitle}`}</title>
             <meta
               name="description"
               content={`${mainPage.fields.seoPageDescription}`}
@@ -55,10 +56,12 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
               content="width=device-width, initial-scale=1"
             />
             <link rel="icon" href="/favicon.ico" />
+
+             </Head>
           </div>;
         })}
          
-      </Head>
+     
      
       {mainBlog.slice(0, 1).map((main) => (
         <FeaturedBlogCard key={main.sys.id} main={main} />
