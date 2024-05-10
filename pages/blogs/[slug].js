@@ -101,13 +101,14 @@ export default function blogPosts({ blogPost, otherBlogPosts }) {
   // console.log(otherBlogPosts)
   
 const {
-    title,
-    readTime,
-    author,
-    hero,
-    datePublished,
-    category,
-    heroAltText,
+  title,
+  readTime,
+  author,
+  hero,
+  datePublished,
+  category,
+  heroAltText,
+  seoPostDescription,
 } = blogPost.fields;
   
   const [copied, setCopied] = useState(false);
@@ -132,12 +133,9 @@ const {
     <div>
       <Head>
         <title>{`${title}`}</title>
-        <meta
-          name="description"
-          content="A blog by Ameley and her cloud journey"
-        />
+        <meta name="description" content={`${seoPostDescription}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/logo.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="px-5 my-3">
         <h1 className="text-center text-3xl font-bold py-6">
@@ -209,11 +207,13 @@ const {
         ))}
       </div>
       <div className="py-10 px-5 ">
-        <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-500 rounded-lg max-w-36 mx-auto">Discover More</h1>
+        <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-500 rounded-lg max-w-36 mx-auto">
+          Discover More
+        </h1>
       </div>
-      
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-4 px-5 xl:px-10 mx-auto max-w-[1000px] ">
-        {otherBlogPosts.slice(0,3).map((otherBlog) => (
+        {otherBlogPosts.slice(0, 3).map((otherBlog) => (
           <BlogCard key={otherBlog.sys.id} blog={otherBlog} />
         ))}
       </div>
