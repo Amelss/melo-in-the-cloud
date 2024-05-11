@@ -4,25 +4,26 @@ import Head from "next/head";
 import Image from "next/image";
 import FeaturedBlogCard from "@/components/FeaturedBlogCard";
 import Link from "next/link";
+import * as contentful from "@/utils/contentful";
 
-const client = createClient({
-  accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-  space: process.env.CONTENTFUL_SPACE_ID,
-  previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-});
+// const client = createClient({
+//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+//   space: process.env.CONTENTFUL_SPACE_ID,
+//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
+// });
 
 export async function getStaticProps() {
-  const res = await client.getEntries({
+  const res = await contentful.client.getEntries({
     content_type: "blogPost",
     order: "-sys.createdAt",
   });
  
-  const allBlogPosts = await client.getEntries({
+  const allBlogPosts = await contentful.client.getEntries({
     content_type: "blogPost",
     order: "-sys.createdAt",
   });
 
-  const home = await client.getEntries({
+  const home = await contentful.client.getEntries({
     content_type: "homepage",
     
   });

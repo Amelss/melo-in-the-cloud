@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function FeaturedBlogCard({ main }) {
   const { title, hero, heroAltText, featuredExcerpt, slug } = main.fields;
-  console.log(main);
+  // console.log(main);
 
   return (
     <div>

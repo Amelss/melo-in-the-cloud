@@ -3,16 +3,17 @@ import { createClient } from "contentful";
 import Head from "next/head";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import * as contentful from "@/utils/contentful";
 
 
-const client = createClient({
-  accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-  space: process.env.CONTENTFUL_SPACE_ID,
-  previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-});
+// const client = createClient({
+//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+//   space: process.env.CONTENTFUL_SPACE_ID,
+//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
+// });
 
 export async function getStaticProps() {
-  const aboutMe = await client.getEntries({
+  const aboutMe = await contentful.client.getEntries({
     content_type: "about"
   });
 

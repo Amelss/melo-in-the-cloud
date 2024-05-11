@@ -4,18 +4,19 @@ import Head from "next/head";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import BlogCard from "@/components/BlogCard";
+import * as contentful from "@/utils/contentful";
 
 
 
 
-const client = createClient({
-  accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-  space: process.env.CONTENTFUL_SPACE_ID,
-  previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-});
+// const client = createClient({
+//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
+//   space: process.env.CONTENTFUL_SPACE_ID,
+//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
+// });
 
 export async function getStaticPaths() {
-  const entries = await client.getEntries({
+  const entries = await contentful.client.getEntries({
     content_type: "blogPost",
   });
 
@@ -29,19 +30,27 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps(context) {
+  // console.log("context: ", context);
+  
   try {
+    const client = context.preview
+      ? contentful.previewClient
+      : contentful.client
+    
     const entries = await client.getEntries({
       content_type: "blogPost",
-      "fields.slug": params.slug,
+      "fields.slug": context.params.slug,
       include: 10,
     });
 
+  
+    
     const blogPost = entries.items[0];
  
    
 
-    const allBlogEntries = await client.getEntries({
+    const allBlogEntries = await contentful.client.getEntries({
       content_type: "blogPost",
     });
 
