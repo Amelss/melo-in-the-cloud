@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import BlogCard from "@/components/BlogCard";
 import * as contentful from "@/utils/contentful";
-
+import PreviewBanner from "@/components/PreviewBanner";
 
 
 
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  // console.log("context: ", context);
+  console.log("context: ", context);
   
   try {
     const client = context.preview
@@ -85,6 +85,7 @@ export async function getStaticProps(context) {
 
     return {
       props: {
+        preview: context.preview || false,
         blogPost,
         referencedEntries,
         otherBlogPosts,
@@ -102,7 +103,7 @@ export async function getStaticProps(context) {
 
 
 
-export default function blogPosts({ blogPost, otherBlogPosts }) {
+export default function blogPosts({ blogPost, otherBlogPosts, preview }) {
   if (!blogPost || !blogPost.fields) {
     return <div>Error: Blog post not found</div>;
   }
@@ -146,6 +147,7 @@ const {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      {preview && <PreviewBanner />}
       <div className="px-5 my-3">
         <h1 className="text-center text-3xl font-bold py-6">
           {blogPost.fields.title}
