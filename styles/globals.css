@@ -69,3 +69,9 @@ Note: Beware of modifying this element as it can break the animations - you shou
 .text-body{
   white-space: pre-wrap;
 }
+
+@media (max-width: 900px) {
+  .featured{
+    display: none;
+  }
+}
