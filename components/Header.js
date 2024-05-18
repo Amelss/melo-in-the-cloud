@@ -41,9 +41,9 @@ export default function Header() {
             <Link href={"/blogs"} onClick={closeSideBar}>
               All Blogs
             </Link>
-            <Link href={"/contact"} onClick={closeSideBar}>
+            {/* <Link href={"/contact"} onClick={closeSideBar}>
               Contact
-            </Link>
+            </Link> */}
           </Menu>
           {/* <div>
              <Search />
@@ -63,9 +63,9 @@ export default function Header() {
             <Link href={"/blogs"} className="ml-3">
               All Blogs
             </Link>
-            <Link href={"/contact"} className="ml-3">
+            {/* <Link href={"/contact"} className="ml-3">
               Contact
-            </Link>
+            </Link> */}
           </nav>
         </div>
       </div>
