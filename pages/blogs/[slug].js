@@ -186,7 +186,7 @@ const {
           <div key={index}>
             {section.sys.contentType.sys.id === "image" &&
             section.fields.image.fields.file ? (
-              <div className="py-3 px-5 xl:px-0">
+              <div className="py-7 px-5 xl:px-0">
                 <Image
                   src={`https:${section.fields.image.fields.file.url}`}
                   alt={section.fields.altText}
@@ -196,7 +196,7 @@ const {
                 />
               </div>
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-              <div className="leading-relaxed px-5 py-3 xl:px-40 whitespace-pre-wrap text-sm xl:text-base text-body">
+              <div className="leading-relaxed px-5 py-7 xl:px-40 whitespace-pre-wrap text-sm xl:text-base text-body">
                 {documentToReactComponents(section.fields.textBlockText)}
               </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
@@ -220,9 +220,9 @@ const {
           </div>
         ))}
 
-        {photoCreditName ? (
+        {photoCredit ? (
           <p className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
-            {photoCreditName && (
+            {photoCredit && (
               <Link href={`${photoCredit}`} target="blank">
                 {photoCreditName}
               </Link>
