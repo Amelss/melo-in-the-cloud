@@ -48,10 +48,10 @@ export default function about({ aboutMePage }) {
 
           <h1 className='text-center text-blue-300 font-bold text-3xl py-3 lg:pb-10 lg:mb-10'>About Me</h1>
 
-          <div className='block px-8 xl:flex justify-between lg:px-10'>
+          <div className='block px-8 '>
             <Image
               src={`https:${personal.fields.aboutHero.fields.file.url}`}
-              alt={"helol"}
+              alt={"picture of myself"}
               width={400}
               height={
                 400
