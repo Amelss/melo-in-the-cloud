@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import BlogCard from "@/components/BlogCard";
 import * as contentful from "@/utils/contentful";
 import PreviewBanner from "@/components/PreviewBanner";
+import Link from "next/link";
 
 
 
@@ -31,7 +32,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  console.log("context: ", context);
+  // console.log("context: ", context);
   
   try {
     const client = context.preview
@@ -119,6 +120,8 @@ const {
   category,
   heroAltText,
   seoPostDescription,
+  photoCreditName,
+  photoCredit,
 } = blogPost.fields;
   
   const [copied, setCopied] = useState(false);
@@ -193,7 +196,7 @@ const {
                 />
               </div>
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-              <div className="leading-relaxed px-5 py-3 xl:px-40">
+              <div className="leading-relaxed px-5 py-3 xl:px-40 whitespace-pre-wrap text-sm xl:text-base text-body">
                 {documentToReactComponents(section.fields.textBlockText)}
               </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
@@ -216,8 +219,22 @@ const {
             ) : null}
           </div>
         ))}
+
+        {photoCreditName ? (
+          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
+            {photoCreditName && (
+              <Link href={`${photoCredit}`} target="blank">
+                {photoCreditName}
+              </Link>
+            )}
+          </p>
+        ) : (
+          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40">
+            {photoCreditName}
+          </p>
+        )}
       </div>
-      <div className="py-10 px-5 ">
+      <div className="pt-20 py-16 mt-14 px-5 ">
         <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-500 rounded-lg max-w-36 mx-auto">
           Discover More
         </h1>

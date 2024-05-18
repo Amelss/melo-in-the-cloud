@@ -38,7 +38,8 @@ export async function getStaticProps() {
 }
 
 export default function Home({ mainBlog, allBlogs, homepage }) {
-  // console.log(homepage);
+  // console.log(allBlogs);
+
   
   
   return (
@@ -78,8 +79,8 @@ export default function Home({ mainBlog, allBlogs, homepage }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-4 gap-y-5 justify-items-center">
-        {allBlogs.map((allBlog) => (
+      <div className="grid grid-cols-1 lg:grid-cols-3 2xl:grid-cols-3 gap-y-5 justify-items-center">
+        {allBlogs.slice(0,6).map((allBlog) => (
           <BlogCard key={allBlog.sys.id} blog={allBlog} />
         ))}
       </div>

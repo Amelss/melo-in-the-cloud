@@ -48,7 +48,7 @@ export default function BlogCard({ blog }) {
             <Link
               href={`/${process.env.NEXT_PUBLIC_BASE_PATH || ""}/${slug}`}
             >
-                <h1 className="px-2 text-md font-bold">{title}</h1>
+                <h1 className="px-2 text-md font-bold text-balance">{title}</h1>
             </Link>
           
           </div>
