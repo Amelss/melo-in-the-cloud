@@ -186,7 +186,7 @@ const {
           <div key={index}>
             {section.sys.contentType.sys.id === "image" &&
             section.fields.image.fields.file ? (
-              <div className="py-7 px-5 xl:px-0">
+              <div className="py-8 px-5 xl:px-0">
                 <Image
                   src={`https:${section.fields.image.fields.file.url}`}
                   alt={section.fields.altText}
@@ -196,7 +196,7 @@ const {
                 />
               </div>
             ) : section.sys.contentType.sys.id === "textBlock" ? (
-              <div className="leading-relaxed px-5 py-7 xl:px-40 whitespace-pre-wrap text-sm xl:text-base text-body">
+              <div className="leading-relaxed px-5 py-8 xl:px-40 whitespace-pre-wrap text-sm xl:text-base text-body">
                 {documentToReactComponents(section.fields.textBlockText)}
               </div>
             ) : section.sys.contentType.sys.id === "codeBlock" ? (
