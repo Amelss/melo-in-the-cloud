@@ -8,8 +8,6 @@ import * as contentful from "@/utils/contentful";
 import PreviewBanner from "@/components/PreviewBanner";
 import Link from "next/link";
 
-
-
 // const client = createClient({
 //   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
 //   space: process.env.CONTENTFUL_SPACE_ID,
@@ -33,23 +31,19 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   // console.log("context: ", context);
-  
+
   try {
     const client = context.preview
       ? contentful.previewClient
-      : contentful.client
-    
+      : contentful.client;
+
     const entries = await client.getEntries({
       content_type: "blogPost",
       "fields.slug": context.params.slug,
       include: 10,
     });
 
-  
-    
     const blogPost = entries.items[0];
- 
-   
 
     const allBlogEntries = await contentful.client.getEntries({
       content_type: "blogPost",
@@ -102,28 +96,26 @@ export async function getStaticProps(context) {
   }
 }
 
-
-
 export default function blogPosts({ blogPost, otherBlogPosts, preview }) {
   if (!blogPost || !blogPost.fields) {
     return <div>Error: Blog post not found</div>;
   }
   // console.log(blogPost);
   // console.log(otherBlogPosts)
-  
-const {
-  title,
-  readTime,
-  author,
-  hero,
-  datePublished,
-  category,
-  heroAltText,
-  seoPostDescription,
-  photoCreditName,
-  photoCredit,
-} = blogPost.fields;
-  
+
+  const {
+    title,
+    readTime,
+    author,
+    hero,
+    datePublished,
+    category,
+    heroAltText,
+    seoPostDescription,
+    photoCreditName,
+    photoCredit,
+  } = blogPost.fields;
+
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = (text) => {
@@ -141,7 +133,6 @@ const {
     return new Date(dateString).toLocaleDateString("en-GB", options);
   };
 
-  
   return (
     <div>
       <Head>
@@ -220,19 +211,11 @@ const {
           </div>
         ))}
 
-        {photoCredit ? (
-          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
-            {photoCredit && (
-              <Link href={`${photoCredit}`} target="blank">
-                {photoCreditName}
-              </Link>
-            )}
-          </p>
-        ) : (
-          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40">
+        <div className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
+          <Link href={`${photoCredit}`} target="blank">
             {photoCreditName}
-          </p>
-        )}
+          </Link>
+        </div>
       </div>
       <div className="pt-20 py-16 mt-14 px-5 ">
         <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-500 rounded-lg max-w-36 mx-auto">
