@@ -211,11 +211,19 @@ export default function blogPosts({ blogPost, otherBlogPosts, preview }) {
           </div>
         ))}
 
-        <div className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
-          <Link href={`${photoCredit}`} target="blank">
-            {photoCreditName} 
-          </Link>
-        </div>
+        {photoCredit ? (
+          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
+            {photoCredit && (
+              <Link href={`${photoCredit}`} target="blank">
+                {photoCreditName}
+              </Link>
+            )}
+          </p>
+        ) : (
+          <p className="text-gray-400 text-xs px-5 py-3 xl:px-40">
+            {photoCreditName}
+          </p>
+        )}
       </div>
       <div className="pt-20 py-16 mt-14 px-5 ">
         <h1 className="py-1 font-bold text-sm text-center bg-blue-100 text-blue-500 rounded-lg max-w-36 mx-auto">
