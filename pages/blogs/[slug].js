@@ -213,7 +213,7 @@ export default function blogPosts({ blogPost, otherBlogPosts, preview }) {
 
         <div className="text-gray-400 text-xs px-5 py-3 xl:px-40 cursor-pointer">
           <Link href={`${photoCredit}`} target="blank">
-            {photoCreditName}
+            {photoCreditName} 
           </Link>
         </div>
       </div>
