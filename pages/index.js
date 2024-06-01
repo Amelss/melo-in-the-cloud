@@ -6,11 +6,6 @@ import FeaturedBlogCard from "@/components/FeaturedBlogCard";
 import Link from "next/link";
 import * as contentful from "@/utils/contentful";
 
-// const client = createClient({
-//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-//   space: process.env.CONTENTFUL_SPACE_ID,
-//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-// });
 
 export async function getStaticProps() {
   const res = await contentful.client.getEntries({
@@ -38,10 +33,7 @@ export async function getStaticProps() {
 }
 
 export default function Home({ mainBlog, allBlogs, homepage }) {
-  // console.log(allBlogs);
 
-  
-  
   return (
     <main className="mx-auto">
       

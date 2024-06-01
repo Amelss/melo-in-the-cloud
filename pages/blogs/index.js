@@ -4,12 +4,6 @@ import { createClient } from "contentful";
 import Head from 'next/head';
 import * as contentful from "@/utils/contentful";
 
-// const client = createClient({
-//   space: process.env.CONTENTFUL_SPACE_ID,
-//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-// });
-
 
 export async function getStaticProps() {
     const res = await contentful.client.getEntries({

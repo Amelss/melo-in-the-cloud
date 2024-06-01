@@ -1,4 +1,3 @@
-import { createClient } from "contentful";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Head from "next/head";
 import Image from "next/image";
@@ -8,11 +7,6 @@ import * as contentful from "@/utils/contentful";
 import PreviewBanner from "@/components/PreviewBanner";
 import Link from "next/link";
 
-// const client = createClient({
-//   accessToken: process.env.CONTENTFUL_ACCESS_KEY,
-//   space: process.env.CONTENTFUL_SPACE_ID,
-//   previewToken: process.env.CONTENTFUL_PREVIEW_ACCESS_KEY,
-// });
 
 export async function getStaticPaths() {
   const entries = await contentful.client.getEntries({
@@ -30,8 +24,6 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  // console.log("context: ", context);
-
   try {
     const client = context.preview
       ? contentful.previewClient
@@ -100,9 +92,7 @@ export default function blogPosts({ blogPost, otherBlogPosts, preview }) {
   if (!blogPost || !blogPost.fields) {
     return <div>Error: Blog post not found</div>;
   }
-  // console.log(blogPost);
-  // console.log(otherBlogPosts)
-
+ 
   const {
     title,
     readTime,

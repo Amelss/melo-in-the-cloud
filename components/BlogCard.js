@@ -11,10 +11,6 @@ export default function BlogCard({ blog }) {
 
    const { title, readTime, excerpt, tags, slug, thumbnail, datePublished } = blog.fields;
 
-   
-   const thumbnailUrl = thumbnail?.fields?.image?.fields?.file?.url || "";
-   const thumbnailAltText = thumbnail?.fields?.altText || "";
-
   const itemBackgroundColors = {
     Storage: "bg-yellow-200",
     Compute: "bg-pink-200",
